@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-    provider = "sqlite"
+    provider = "postgresql"
     // NOTE: When using postgresql, mysql or sqlserver, uncomment the @db.Text annotations in model Account below
     // Further reading:
     // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
@@ -20,7 +20,16 @@ model Example {
     updatedAt DateTime @updatedAt
 }
 
-// Necessary for Next auth
+model Posts {
+  id        String     @default(cuid()) @id
+  title     String
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  String?
+  createdAt DateTime  @default(now())
+}
+
+// Necessary for Next aut
 model Account {
     id                String  @id @default(cuid())
     userId            String
@@ -55,6 +64,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    posts         Posts[]
 }
 
 model VerificationToken {

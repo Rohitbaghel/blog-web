@@ -9,6 +9,9 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    domains: ["avatars.githubusercontent.com"],
+  },
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you
@@ -19,6 +22,9 @@ const config = {
   i18n: {
     locales: ["en"],
     defaultLocale: "en",
+  },
+  experimental: {
+    appDir: true,
   },
 };
 export default config;
